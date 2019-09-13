@@ -1,0 +1,31 @@
+version: "3.3"
+
+volumes:
+  db: {}
+
+services:
+  go:
+    container_name: go-todos-api
+    build:
+      context: .
+      dockerfile: docker/go/Dockerfile
+    ports:
+      - 8080:81
+    environment:
+      DB_URL: host=db user=go-todos dbname=go-todos sslmode=disable password=go-todos
+    links:
+      - db
+    restart: unless-stopped
+    depends_on:
+      - db
+
+  db:
+    container_name: go-todos-db
+    image: postgres
+    volumes:
+      - db:/var/lib/postgresql
+    environment:
+      POSTGRES_DB: go-todos
+      POSTGRES_USER: go-todos
+      POSTGRES_PASSWORD: go-todos
+    restart: unless-stopped
