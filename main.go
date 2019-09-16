@@ -2,10 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
-	"net/http"
 	"os"
+	"todos-rest/app"
 )
 
 func readConfig() {
@@ -40,11 +39,7 @@ func readConfig() {
 func main() {
 	readConfig()
 
-	router := gin.Default()
-	router.GET("/ping", func(c *gin.Context) {
-		c.String(http.StatusOK, "pong")
-	})
-
-	router.Run(":" + viper.GetString("SERVER_PORT"))
-
+	var app = app.NewApp()
+	app.Init()
+	app.Run()
 }
