@@ -19,11 +19,11 @@ func NewRouter() *Router {
 
 func (r *Router) InitRouter(app *App) {
 	r.router = gin.Default()
-	r.router.GET("/api/todos/:id", app.todoController.Get)
-	r.router.GET("/api/todos", app.todoController.List)
-	r.router.POST("/api/todos", app.todoController.Create)
-	r.router.PUT("/api/todos/:id", app.todoController.Update)
-	r.router.DELETE("/api/todos/:id", app.todoController.Delete)
+	r.router.GET("/api/todos/:id", app.TodoController.Get)
+	r.router.GET("/api/todos", app.TodoController.List)
+	r.router.POST("/api/todos", app.TodoController.Create)
+	r.router.PUT("/api/todos/:id", app.TodoController.Update)
+	r.router.DELETE("/api/todos/:id", app.TodoController.Delete)
 }
 
 func (r *Router) Run() {

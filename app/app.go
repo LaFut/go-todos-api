@@ -14,13 +14,11 @@ type App struct {
 	logger         *logger.Logger
 	db             *gorm.DB
 	router         *Router
-	todoService    service.TodoServiceInterface
-	todoRepository repository.TodoRepositoryInterface
-	todoController *controller.TodoController
+	TodoService    service.TodoServiceInterface
+	TodoRepository repository.TodoRepositoryInterface
+	TodoController *controller.TodoController
 	appOnce        sync.Once
 }
-
-var app App
 
 func NewApp() *App {
 	app := App{}
@@ -31,9 +29,9 @@ func (a *App) Init() {
 	a.logger = logger.NewLogger()
 	a.db = db.NewDb()
 	a.router = NewRouter()
-	a.todoRepository = repository.NewTodoRepository(a.db, a.logger)
-	a.todoService = service.NewTodoService(a.todoRepository, a.logger)
-	a.todoController = controller.NewTodoController(a.todoService, a.logger)
+	a.TodoRepository = repository.NewTodoRepository(a.db, a.logger)
+	a.TodoService = service.NewTodoService(a.TodoRepository, a.logger)
+	a.TodoController = controller.NewTodoController(a.TodoService, a.logger)
 
 	a.router.InitRouter(a)
 }

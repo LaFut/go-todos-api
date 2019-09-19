@@ -32,14 +32,14 @@ func readConfig() {
 
 	// Read parameters from
 	for _, key := range viper.AllKeys() {
-		viper.BindEnv(key)
+		_ = viper.BindEnv(key)
 	}
 }
 
 func main() {
 	readConfig()
 
-	var app = app.NewApp()
-	app.Init()
-	app.Run()
+	var server = app.NewApp()
+	server.Init()
+	server.Run()
 }
