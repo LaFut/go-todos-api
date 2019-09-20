@@ -19,14 +19,29 @@ func NewUserRepositoryMock() repository.TodoRepositoryInterface {
 	return repo
 }
 
-func (c TodoRepositoryMock) Children(id uint) (entity.InterfaceEntity, error) {
-	return nil, nil
-}
-
 func (c TodoRepositoryMock) Find(id uint) (entity.InterfaceEntity, error) {
 	item := &entity.Todo{TodoFields: &entity.TodoFields{Name: "test todo"}}
 	item.ID = 2
 	return item, nil
+}
+
+func (c TodoRepositoryMock) Children(id uint) (entity.InterfaceEntity, error) {
+	var children = []entity.Todo{
+		{
+			TodoFields: &entity.TodoFields{
+				Name:     "Child1",
+				ParentId: 2,
+			},
+		},
+		{
+			TodoFields: &entity.TodoFields{
+				Name:     "Child2",
+				ParentId: 2,
+			},
+		},
+	}
+	return children, nil
+
 }
 
 func TestGetItem(t *testing.T) {

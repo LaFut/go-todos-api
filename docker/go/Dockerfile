@@ -2,6 +2,8 @@ FROM golang:latest
 
 WORKDIR /go/src/todos-rest
 
+RUN go get github.com/go-swagger/go-swagger/cmd/swagger
+
 COPY ./docker/go/entrypoint.sh /root/
 RUN chmod 755 /root/entrypoint.sh
 

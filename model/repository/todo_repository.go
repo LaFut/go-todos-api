@@ -26,12 +26,12 @@ func (c TodoListQueryBuilder) ListQuery(parameters ListParametersInterface) *gor
 		return query
 	}
 
-	field := val.FieldByName("parent_id")
+	field := val.FieldByName("ParentID")
 	if field.IsValid() && field.Kind() == reflect.Int {
 		query = query.Where("parent_id = ?", field.Int())
 	}
 
-	field = val.FieldByName("name")
+	field = val.FieldByName("Name")
 	if field.IsValid() && field.Kind() == reflect.String {
 		query = query.Where("name like ?", field.String()+"%")
 	}
@@ -61,7 +61,7 @@ type TodoRepository struct {
 
 func (c TodoRepository) Children(id uint) (entity.InterfaceEntity, error) {
 	items := reflect.New(reflect.SliceOf(reflect.TypeOf(c.GetModel()).Elem())).Interface()
-	query := c.listQueryBuilder.ListQuery(TodoParameters{ParentID: int(id)})
+	query := c.listQueryBuilder.ListQuery(&TodoParameters{ParentID: int(id)})
 	err := query.Find(items).Error
 	return items, err
 }

@@ -23,19 +23,20 @@ func NewTodoService(repository repository.TodoRepositoryInterface, logger *logge
 }
 
 func (c TodoService) GetItem(id uint) (entity.InterfaceEntity, error) {
-	err, todo := c.repository.Find(id)
+	item, err := c.repository.Find(id)
 
 	if err != nil {
-		return err, todo
+		return item, err
 	}
 
-	val := reflect.ValueOf(todo).Elem()
+	val := reflect.ValueOf(item).Elem()
 	if val.Kind() != reflect.Struct {
 		c.logger.Fatal("")
-		return err, todo
+		return item, err
 	}
 
-	//val.Children = c.repository.Children(id)
+	children, err := c.repository.Children(id)
+	reflect.ValueOf(item).Elem().FieldByName("Children").Set(reflect.ValueOf(children).Elem())
 
-	return err, todo
+	return item, err
 }
