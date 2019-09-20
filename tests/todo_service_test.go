@@ -40,7 +40,7 @@ func (c TodoRepositoryMock) Children(id uint) (entity.InterfaceEntity, error) {
 			},
 		},
 	}
-	return children, nil
+	return &children, nil
 
 }
 
@@ -65,4 +65,15 @@ func TestGetItem(t *testing.T) {
 	if testItem.Name != "test todo" {
 		t.Error("'test todo' expected")
 	}
+
+	if len(testItem.Children) != 2 {
+		t.Error("Children count is not equals to 2")
+	}
+
+	for _, child := range testItem.Children {
+		if child.ParentId != 2 {
+			t.Error("Incorrect child")
+		}
+	}
+
 }
