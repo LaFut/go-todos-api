@@ -10,9 +10,10 @@ services:
       context: .
       dockerfile: docker/go/Dockerfile
     ports:
-      - 8080:81
+      - 8080:80
     environment:
       DB_URL: host=db user=go-todos dbname=go-todos sslmode=disable password=go-todos
+      GIN_MODE: release
     links:
       - db
     restart: unless-stopped
