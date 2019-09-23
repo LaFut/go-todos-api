@@ -3,6 +3,8 @@
 docker-composer up -d
 ```
 
+swagger: http://localhost:8080/doc/swagger.json
+
 ### get todos
 ```shell script
 curl -v -H "Content-Type: application/json"  localhost:8080/api/todos
